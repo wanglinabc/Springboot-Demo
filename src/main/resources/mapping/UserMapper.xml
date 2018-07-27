@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.Dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.Entity.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="tradepwd" property="tradepwd" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="templateId" property="templateid" jdbcType="INTEGER" />
+    <result column="authState" property="authstate" jdbcType="INTEGER" />
+    <result column="idNum" property="idnum" jdbcType="VARCHAR" />
+    <result column="realName" property="realname" jdbcType="VARCHAR" />
+    <result column="frontImg" property="frontimg" jdbcType="VARCHAR" />
+    <result column="reverseImg" property="reverseimg" jdbcType="VARCHAR" />
+    <result column="fullImg" property="fullimg" jdbcType="VARCHAR" />
+    <result column="authRemark" property="authremark" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="referrer" property="referrer" jdbcType="INTEGER" />
+    <result column="frozenday" property="frozenday" jdbcType="INTEGER" />
+    <result column="xcode" property="xcode" jdbcType="VARCHAR" />
+    <result column="inviteCode" property="invitecode" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="switchbtn" property="switchbtn" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, phone, password, tradepwd, name, logo, type, templateId, authState, idNum, 
+    realName, frontImg, reverseImg, fullImg, authRemark, state, referrer, frozenday, 
+    xcode, inviteCode, createtime, endtime, switchbtn
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.Entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectOneByExample" resultMap="BaseResultMap" parameterType="com.example.demo.Entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.Entity.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.Entity.User" >
+    insert into user (userid, phone, password, 
+      tradepwd, name, logo, 
+      type, templateId, authState, 
+      idNum, realName, frontImg, 
+      reverseImg, fullImg, authRemark, 
+      state, referrer, frozenday, 
+      xcode, inviteCode, createtime, 
+      endtime, switchbtn)
+    values (#{userid,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{tradepwd,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{templateid,jdbcType=INTEGER}, #{authstate,jdbcType=INTEGER}, 
+      #{idnum,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{frontimg,jdbcType=VARCHAR}, 
+      #{reverseimg,jdbcType=VARCHAR}, #{fullimg,jdbcType=VARCHAR}, #{authremark,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{referrer,jdbcType=INTEGER}, #{frozenday,jdbcType=INTEGER}, 
+      #{xcode,jdbcType=VARCHAR}, #{invitecode,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{switchbtn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.Entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="tradepwd != null" >
+        tradepwd,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="templateid != null" >
+        templateId,
+      </if>
+      <if test="authstate != null" >
+        authState,
+      </if>
+      <if test="idnum != null" >
+        idNum,
+      </if>
+      <if test="realname != null" >
+        realName,
+      </if>
+      <if test="frontimg != null" >
+        frontImg,
+      </if>
+      <if test="reverseimg != null" >
+        reverseImg,
+      </if>
+      <if test="fullimg != null" >
+        fullImg,
+      </if>
+      <if test="authremark != null" >
+        authRemark,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="referrer != null" >
+        referrer,
+      </if>
+      <if test="frozenday != null" >
+        frozenday,
+      </if>
+      <if test="xcode != null" >
+        xcode,
+      </if>
+      <if test="invitecode != null" >
+        inviteCode,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="switchbtn != null" >
+        switchbtn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tradepwd != null" >
+        #{tradepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null" >
+        #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="authstate != null" >
+        #{authstate,jdbcType=INTEGER},
+      </if>
+      <if test="idnum != null" >
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="frontimg != null" >
+        #{frontimg,jdbcType=VARCHAR},
+      </if>
+      <if test="reverseimg != null" >
+        #{reverseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="fullimg != null" >
+        #{fullimg,jdbcType=VARCHAR},
+      </if>
+      <if test="authremark != null" >
+        #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="referrer != null" >
+        #{referrer,jdbcType=INTEGER},
+      </if>
+      <if test="frozenday != null" >
+        #{frozenday,jdbcType=INTEGER},
+      </if>
+      <if test="xcode != null" >
+        #{xcode,jdbcType=VARCHAR},
+      </if>
+      <if test="invitecode != null" >
+        #{invitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="switchbtn != null" >
+        #{switchbtn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradepwd != null" >
+        tradepwd = #{record.tradepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.templateid != null" >
+        templateId = #{record.templateid,jdbcType=INTEGER},
+      </if>
+      <if test="record.authstate != null" >
+        authState = #{record.authstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.idnum != null" >
+        idNum = #{record.idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null" >
+        realName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frontimg != null" >
+        frontImg = #{record.frontimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reverseimg != null" >
+        reverseImg = #{record.reverseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullimg != null" >
+        fullImg = #{record.fullimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authremark != null" >
+        authRemark = #{record.authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.referrer != null" >
+        referrer = #{record.referrer,jdbcType=INTEGER},
+      </if>
+      <if test="record.frozenday != null" >
+        frozenday = #{record.frozenday,jdbcType=INTEGER},
+      </if>
+      <if test="record.xcode != null" >
+        xcode = #{record.xcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invitecode != null" >
+        inviteCode = #{record.invitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.switchbtn != null" >
+        switchbtn = #{record.switchbtn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set userid = #{record.userid,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      tradepwd = #{record.tradepwd,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      templateId = #{record.templateid,jdbcType=INTEGER},
+      authState = #{record.authstate,jdbcType=INTEGER},
+      idNum = #{record.idnum,jdbcType=VARCHAR},
+      realName = #{record.realname,jdbcType=VARCHAR},
+      frontImg = #{record.frontimg,jdbcType=VARCHAR},
+      reverseImg = #{record.reverseimg,jdbcType=VARCHAR},
+      fullImg = #{record.fullimg,jdbcType=VARCHAR},
+      authRemark = #{record.authremark,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      referrer = #{record.referrer,jdbcType=INTEGER},
+      frozenday = #{record.frozenday,jdbcType=INTEGER},
+      xcode = #{record.xcode,jdbcType=VARCHAR},
+      inviteCode = #{record.invitecode,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      switchbtn = #{record.switchbtn,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.Entity.User" >
+    update user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tradepwd != null" >
+        tradepwd = #{tradepwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null" >
+        templateId = #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="authstate != null" >
+        authState = #{authstate,jdbcType=INTEGER},
+      </if>
+      <if test="idnum != null" >
+        idNum = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="frontimg != null" >
+        frontImg = #{frontimg,jdbcType=VARCHAR},
+      </if>
+      <if test="reverseimg != null" >
+        reverseImg = #{reverseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="fullimg != null" >
+        fullImg = #{fullimg,jdbcType=VARCHAR},
+      </if>
+      <if test="authremark != null" >
+        authRemark = #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="referrer != null" >
+        referrer = #{referrer,jdbcType=INTEGER},
+      </if>
+      <if test="frozenday != null" >
+        frozenday = #{frozenday,jdbcType=INTEGER},
+      </if>
+      <if test="xcode != null" >
+        xcode = #{xcode,jdbcType=VARCHAR},
+      </if>
+      <if test="invitecode != null" >
+        inviteCode = #{invitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="switchbtn != null" >
+        switchbtn = #{switchbtn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.Entity.User" >
+    update user
+    set phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      tradepwd = #{tradepwd,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      templateId = #{templateid,jdbcType=INTEGER},
+      authState = #{authstate,jdbcType=INTEGER},
+      idNum = #{idnum,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      frontImg = #{frontimg,jdbcType=VARCHAR},
+      reverseImg = #{reverseimg,jdbcType=VARCHAR},
+      fullImg = #{fullimg,jdbcType=VARCHAR},
+      authRemark = #{authremark,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      referrer = #{referrer,jdbcType=INTEGER},
+      frozenday = #{frozenday,jdbcType=INTEGER},
+      xcode = #{xcode,jdbcType=VARCHAR},
+      inviteCode = #{invitecode,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      switchbtn = #{switchbtn,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

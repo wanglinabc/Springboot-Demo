@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+
+
+com:
+   pageSize: 15
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.example.demo.Entity
+
+
+
+logging:
+  config: classpath:logback-spring.xml
+
+
+

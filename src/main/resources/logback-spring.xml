@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <contextName>Springboot</contextName>
+    <timestamp key="TIMESTAMP" datePattern="yyyy-MM-dd"/>
+    <property name="LOGPATH" value="Logs"/>
+    <property name="CNPATTERN" value=" %cyan(%d{yyyy-MM-dd HH:mm:ss.SSS}) %contextName  %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{40}) --  %msg%n"/>
+    <property name="PATTERN" value=" %d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{40} --  %msg%n"/>
+
+    <!-- 输出到控制台 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+               ${CNPATTERN}
+            </pattern>
+        </layout>
+    </appender>
+
+
+    <!-- 输出通知级别日子到文件 -->
+    <appender name="fileInfoLog"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGPATH}${file.separator}Info${file.separator}${TIMESTAMP}.log</file>
+        <append>true</append>
+
+        <!--只记录错误级别的日子-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">.
+            <!--指定文件名-->
+            <fileNamePattern>${LOGPATH}${file.separator}all${file.separator}info${file.separator}%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
+    <!--输出警告级别的错误-->
+    <appender name="fileWarnLog"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGPATH}${file.separator}Warn${file.separator}${TIMESTAMP}.log</file>
+        <append>true</append>
+
+        <!--只记录错误级别的日子-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">.
+            <!--指定文件名-->
+            <fileNamePattern>${LOGPATH}${file.separator}all${file.separator}Warn${file.separator}%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
+    <!--输出错误级别的日志-->
+    <appender name="fileErrorLog"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGPATH}${file.separator}Error${file.separator}${TIMESTAMP}.log</file>
+        <append>true</append>
+
+        //只记录错误级别的日子
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">.
+            <!--指定文件名-->
+            <fileNamePattern>${LOGPATH}${file.separator}all${file.separator}error${file.separator}%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--开发环境记录的日志-->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="stdout"/>
+            <appender-ref ref="fileWarnLog"/>
+            <appender-ref ref="fileErrorLog"/>
+            <appender-ref ref="fileInfoLog"/>
+        </root>
+    </springProfile>
+
+    <!--生产环境记录的日志-->
+    <springProfile name="prod">
+
+        <root level="WARN">
+            <appender-ref ref="fileWarnLog"/>
+            <appender-ref ref="fileErrorLog"/>
+        </root>
+    </springProfile>
+
+</configuration>
