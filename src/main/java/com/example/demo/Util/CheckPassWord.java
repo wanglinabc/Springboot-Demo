@@ -18,7 +18,7 @@ public class CheckPassWord {
             } else
                 break;
         }
-        if (num_count >= 1 && char_number >= 8)
+        if (num_count >= 1 && char_number >= 1 && num_count + char_number >= 8)
             flag = true;
         return flag;
     }

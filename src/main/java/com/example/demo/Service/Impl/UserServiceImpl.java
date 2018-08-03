@@ -1,11 +1,14 @@
-package com.example.demo.Service;
+package com.example.demo.Service.Impl;
 
 import com.example.demo.Dao.RedisDao;
 import com.example.demo.Dao.UserMapper;
 import com.example.demo.Entity.User;
 import com.example.demo.Entity.UserExample;
+import com.example.demo.Service.ParseJsonDataToMap;
+import com.example.demo.Service.IUserService;
 import com.example.demo.Util.AuthToken;
 import com.example.demo.Util.MD5;
+import com.example.demo.Util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service(value = "userService")
-public class UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMappers;
@@ -24,7 +27,7 @@ public class UserService {
     private AuthToken authToken;
 
     public int addUser( User user ) {
-        return 1;//userMappers.insertSelective(user);
+        return userMappers.insertSelective( user );
     }
 
     /**
@@ -40,7 +43,7 @@ public class UserService {
             return new HashMap<>();
         }
         if (info.get( "userid" ) == null || !info.get( "userid" ).equals( userID )) {
-            return new HashMap<>( );
+            return new HashMap<>();
         }
 
         return info;
@@ -53,27 +56,22 @@ public class UserService {
      * @param password
      * @return
      */
-    public Map login( String phone, String password ) {
+    public ResponseResult<Map> login( String phone, String password ) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andPhoneEqualTo( phone );
         password = MD5.getMD5( password );
         criteria.andPasswordEqualTo( password );
         List<?> list = userMappers.selectByExample( example );
-        Map result = new HashMap();
         if (list.size() == 0) {
-            result.put( "result", 0 );
-            result.put( "msg", "用户名或密码错误" );
-            return result;
+            return ResponseResult.createByErrorMessage( "用户名或密码错误" );
         }
+
         Map data = ParseJsonDataToMap.parseOrgJsonToMap( list.get( 0 ).toString() );
         String token = authToken.getToken();
         data.put( "token", token );
         redisDao.hmSet( token, data );
-        result.put( "result", 1 );
-        result.put( "msg", "登录成功" );
-        result.put( "data", data );
-        return result;
+        return ResponseResult.createBySuccessMsgData( "登录成功",data );
     }
 
     /**
@@ -81,16 +79,14 @@ public class UserService {
      * @param password
      * @return
      */
-    public Map register( String Phone, String password ) {
+    public ResponseResult register( String Phone, String password ) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andPhoneEqualTo( Phone );
         User user = userMappers.selectOneByExample( example );
         Map result = new HashMap();
         if (user != null) {
-            result.put( "result", 0 );
-            result.put( "msg", "当前用户已存在" );
-            return result;
+            return ResponseResult.createByErrorMessage( "当前用户已存在" );
         }
         password = MD5.getMD5( password );
         User userObj = new User();
@@ -98,12 +94,9 @@ public class UserService {
         userObj.setPassword( password );
         userObj.setInvitecode( authToken.getToken() );
         if (userMappers.insertSelective( userObj ) == 1) {
-            result.put( "result", 1 );
-            result.put( "message", "注册成功" );
+            return ResponseResult.createBySuccessMessage( "注册成功" );
         } else {
-            result.put( "result", 0 );
-            result.put( "message", "注册失败" );
+            return ResponseResult.createByErrorMessage( "注册失败" );
         }
-        return result;
     }
 }

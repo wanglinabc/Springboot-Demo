@@ -26,6 +26,23 @@
     <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
     <result column="switchbtn" property="switchbtn" jdbcType="INTEGER" />
   </resultMap>
+
+  <select id="selectOneByExample" resultMap="BaseResultMap" parameterType="com.example.demo.Entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pc_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -96,48 +113,32 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from user
+    from pc_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-  </select>
-  <select id="selectOneByExample" resultMap="BaseResultMap" parameterType="com.example.demo.Entity.UserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    limit 1
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user
+    from pc_user
     where userid = #{userid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+    delete from pc_user
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.example.demo.Entity.UserExample" >
-    delete from user
+    delete from pc_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.Entity.User" >
-    insert into user (userid, phone, password, 
+    insert into pc_user (userid, phone, password, 
       tradepwd, name, logo, 
       type, templateId, authState, 
       idNum, realName, frontImg, 
@@ -155,7 +156,7 @@
       #{endtime,jdbcType=TIMESTAMP}, #{switchbtn,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.Entity.User" >
-    insert into user
+    insert into pc_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
         userid,
@@ -300,7 +301,7 @@
     </trim>
   </insert>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user
+    update pc_user
     <set >
       <if test="record.userid != null" >
         userid = #{record.userid,jdbcType=INTEGER},
@@ -377,7 +378,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user
+    update pc_user
     set userid = #{record.userid,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
@@ -406,7 +407,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.Entity.User" >
-    update user
+    update pc_user
     <set >
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -478,7 +479,7 @@
     where userid = #{userid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.Entity.User" >
-    update user
+    update pc_user
     set phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       tradepwd = #{tradepwd,jdbcType=VARCHAR},

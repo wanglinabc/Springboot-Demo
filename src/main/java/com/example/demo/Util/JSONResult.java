@@ -55,6 +55,8 @@ public class JSONResult implements Serializable {
         if  (JSONResult.result != null) {
             result.put("data", JSONResult.result);
         }
+        //static 常驻内存，赋值 null 清空
+        JSONResult.result = null;
         return result;
     }
 }

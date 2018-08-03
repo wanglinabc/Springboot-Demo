@@ -2,16 +2,15 @@ package com.example.demo.Dao;
 
 import com.example.demo.Entity.Admin;
 import com.example.demo.Entity.AdminExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public interface AdminMapper {
     int deleteByExample(AdminExample example);
 
-    int deleteByPrimaryKey(Integer adminid);
+    int deleteByPrimaryKey(Integer adminId);
 
     int insert(Admin record);
 
@@ -19,7 +18,7 @@ public interface AdminMapper {
 
     List<Admin> selectByExample(AdminExample example);
 
-    Admin selectByPrimaryKey(Integer adminid);
+    Admin selectByPrimaryKey(Integer adminId);
 
     int updateByExampleSelective(@Param("record") Admin record, @Param("example") AdminExample example);
 
@@ -28,4 +27,7 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    Admin selectByLoginName(String login_name);
+
 }

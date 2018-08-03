@@ -43,10 +43,7 @@ public class AdminAuthFilter implements Filter {
             chain.doFilter(request, response);
         } else {
 
-
-            String dn = httpServletRequest.getServerName();
             Map<String, String[]> extraParams = new HashMap<String, String[]>(request.getParameterMap());
-            extraParams.put("dn", new String[]{dn});
             RequestParameterWrapper requestParameterWrapper = new RequestParameterWrapper(httpServletRequest, extraParams);
             chain.doFilter(requestParameterWrapper, response);
         }

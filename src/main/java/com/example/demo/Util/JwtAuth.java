@@ -42,7 +42,7 @@ public class JwtAuth {
     /**
      * 构建jwt
      */
-    public static String createJWT(String userId)
+    public static String createJWT(Integer userId)
     {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 

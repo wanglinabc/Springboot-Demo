@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://120.79.101.2/db1?useSSL=false&verifyServerCertificate=false&characterEncoding=utf8
+    url: jdbc:mysql://120.76.222.215/parking_chain?useSSL=false&verifyServerCertificate=false&characterEncoding=utf8
     username: root
-    password: HiaCjPmbnD33zTbc
+    password: ZcZx@2018
     driver-class-name: com.mysql.jdbc.Driver
 #    type: com.alibaba.druid.pool.DruidDataSource
 #    filters: stat

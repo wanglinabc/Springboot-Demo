@@ -1,121 +1,123 @@
 package com.example.demo.Entity;
 
-import java.util.Date;
-
 public class Admin {
-    private Integer adminid;
+    private Integer adminId;
 
-    private String loginname;
+    private String userName;
 
-    private String realname;
+    private String loginName;
 
-    private String loginpwd;
+    private String loginPwd;
 
-    private String telphone;
+    private String userPhone;
 
-    private Integer state;
+    private String secret;
 
-    private Date createtime;
+    private Byte sex;
 
-    private Integer superadmin;
+    private Byte status;
 
-    private String remark;
+    private Byte isSuper;
 
-    private Integer sex;
+    private String userRemark;
 
-    public Integer getAdminid() {
-        return adminid;
+    private Long createTime;
+
+    private Long updateTime;
+
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
-    public String getLoginname() {
-        return loginname;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLoginname(String loginname) {
-        this.loginname = loginname == null ? null : loginname.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getRealname() {
-        return realname;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
+    public void setLoginName(String loginName) {
+        this.loginName = loginName == null ? null : loginName.trim();
     }
 
-    public String getLoginpwd() {
-        return loginpwd;
+    public String getLoginPwd() {
+        return loginPwd;
     }
 
-    public void setLoginpwd(String loginpwd) {
-        this.loginpwd = loginpwd == null ? null : loginpwd.trim();
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd == null ? null : loginPwd.trim();
     }
 
-    public String getTelphone() {
-        return telphone;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone == null ? null : telphone.trim();
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone == null ? null : userPhone.trim();
     }
 
-    public Integer getState() {
-        return state;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setSecret(String secret) {
+        this.secret = secret == null ? null : secret.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Integer getSuperadmin() {
-        return superadmin;
-    }
-
-    public void setSuperadmin(Integer superadmin) {
-        this.superadmin = superadmin;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "adminid:" + adminid +
-                ", loginname:'" + loginname + '\'' +
-                ", realname:'" + realname + '\'' +
-                ", loginpwd:'" + loginpwd + '\'' +
-                ", telphone:" + telphone  +
-                ", state:" + state +
-                ", createtime:\"" + createtime +
-                "\", superadmin:" + superadmin +
-                ", remark:'" + remark + '\'' +
-                ", sex:" + sex +
-                '}';
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public Byte getIsSuper() {
+        return isSuper;
+    }
+
+    public void setIsSuper(Byte isSuper) {
+        this.isSuper = isSuper;
+    }
+
+    public String getUserRemark() {
+        return userRemark;
+    }
+
+    public void setUserRemark(String userRemark) {
+        this.userRemark = userRemark == null ? null : userRemark.trim();
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
     }
 }

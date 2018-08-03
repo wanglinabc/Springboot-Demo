@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import springfox.documentation.annotations.ApiIgnore;
 
-
+@ApiIgnore
 @RestController
 @RequestMapping("/Kaptcha")
 public class KaptchaController {

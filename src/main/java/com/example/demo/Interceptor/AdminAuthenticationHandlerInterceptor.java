@@ -1,6 +1,6 @@
 package com.example.demo.Interceptor;
 
-import com.example.demo.Exception.AuthException;
+import com.example.demo.Exception.AdminException;
 import com.example.demo.Util.JwtAuth;
 import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
@@ -20,18 +20,15 @@ public class AdminAuthenticationHandlerInterceptor implements HandlerInterceptor
         System.out.println("我这里是登录拦截器");
 
         String auth = request.getHeader("Authorization");
-
         if (auth == null || auth.length() < 7) {
-            AuthException.setCode(401);
-            throw new AuthException("缺少认证信息");
+            throw new AdminException(401, "缺少认证信息");
         }
 
         //判断是否有auth验证信息
         String HeadStr = auth.substring(0, 6).toLowerCase();
 
         if (HeadStr.compareTo("bearer") != 0) {
-            AuthException.setCode(406);
-            throw new AuthException("bearer 验证错误");
+            throw new AdminException(400, "bearer 验证错误");
         }
 
         //解析token
@@ -39,15 +36,16 @@ public class AdminAuthenticationHandlerInterceptor implements HandlerInterceptor
         Claims claims = JwtAuth.parseJWT(auth);
 
         if (claims == null) {
-            AuthException.setCode(406);
-            throw new AuthException("大胆小贼，你token有问题");
+            throw new AdminException(400, "大胆小贼，你token有问题");
         }
 
         //判断是否过期
         if (System.currentTimeMillis() > (Long) claims.get("outtime")) {
-            AuthException.setCode(410);
-            throw new AuthException("登陆超时，请从新登陆");
+            throw new AdminException(410, "登陆超时，请从新登陆");
         }
+
+        request.setAttribute("userid", claims.get("userid"));
+
         return true;
     }
 

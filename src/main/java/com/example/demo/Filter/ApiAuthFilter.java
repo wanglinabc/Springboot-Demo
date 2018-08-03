@@ -1,6 +1,5 @@
 package com.example.demo.Filter;
 
-import com.example.demo.Service.UserService;
 import com.example.demo.Util.AuthToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +17,9 @@ public class ApiAuthFilter implements Filter {
 
     @Autowired
     private AuthToken authToken;
-    @Autowired
-    private UserService userService;
 
     //不需要登录就可以访问的路径(比如:注册登录等)
-    String[] noFilterUrls = new String[]{"/api/user/login", "/api/user/register"};
+    String[] noFilterUrls = new String[]{/*"/api/user/login", "/api/user/register"*/};
 
     private Logger logger = LoggerFactory.getLogger( this.getClass() );
 
@@ -44,40 +41,14 @@ public class ApiAuthFilter implements Filter {
         if (!needFilter) {
             chain.doFilter( request, response );
         } else {
-            String authToken = httpServletRequest.getParameter( "token" );
-            String userId = httpServletRequest.getParameter( "userid" );
-            if (authToken == null || userId == null) {
-                response.setContentType( "application/json; charset=utf-8" );
-                response.setCharacterEncoding( "UTF-8" );
-                response.getWriter().write( "{\"status\":\"0\",\"msg\":\"参数错误\"}" );
-                return;
-            }
-            if (authToken.equals( "" ) || userId.equals( "" )) {
-                response.setContentType( "application/json; charset=utf-8" );
-                response.setCharacterEncoding( "UTF-8" );
-                response.getWriter().write( "{\"status\":\"0\",\"msg\":\"参数错误\"}" );
-                return;
-            }
-
-            Map userInfo = getUserInfo( authToken,userId );
-            if( userInfo.isEmpty()){
-                response.setContentType( "application/json; charset=utf-8" );
-                response.setCharacterEncoding( "UTF-8" );
-                response.getWriter().write( "{\"status\":\"0\",\"msg\":\"请先登录\"}" );
-                return;
-            }
-
             Map<String, String[]> extraParams = new HashMap<String, String[]>( request.getParameterMap() );
-            extraParams.putAll( userInfo );
+            //extraParams.putAll( userInfo );
             RequestParameterWrapper requestParameterWrapper = new RequestParameterWrapper( httpServletRequest, extraParams );
             chain.doFilter( requestParameterWrapper, response );
         }
 
     }
 
-    private Map getUserInfo(String authToken,String userId){
-        return userService.hasLogin( userId,authToken );
-    }
 
     @Override
     public void destroy() {
