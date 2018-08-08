@@ -321,7 +321,7 @@
   <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
-    from pc_admin
+    from spring_admin
     where login_name = #{login_name,jdbcType=VARCHAR} limit 1
   </select>
 </mapper>

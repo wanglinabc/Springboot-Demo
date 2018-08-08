@@ -2,7 +2,6 @@ spring:
   profiles:
     active: dev
 
-
 com:
    pageSize: 15
 mybatis:

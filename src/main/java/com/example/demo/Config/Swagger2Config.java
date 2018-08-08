@@ -30,7 +30,7 @@ public class Swagger2Config {
                 //页面标题
                 .title("车位链接口API")
                 //创建人
-                //.contact(new Contact("We", "http://We.com", "We@163.com"))
+                .contact(new Contact("We", "http://We.com", "We@163.com"))
                 //版本号
                 .version("1.0")
                 //描述

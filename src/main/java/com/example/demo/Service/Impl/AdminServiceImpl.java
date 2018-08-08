@@ -7,6 +7,7 @@ import com.example.demo.Util.JwtAuth;
 import com.example.demo.Util.MD5;
 import com.example.demo.Util.RandStr;
 import com.example.demo.Util.ResponseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service(value = "iadminService")
+@Slf4j
 public class AdminServiceImpl implements IAdminService {
 
     @Autowired

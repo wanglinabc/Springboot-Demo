@@ -8,8 +8,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * admin后台登录控制器
@@ -28,13 +32,13 @@ public class LoginController
             @ApiImplicitParam(name = "username",value = "登录账户名",required = true, paramType = "form", dataType = "String"),
             @ApiImplicitParam(name = "password",value = "密码",required = true,paramType = "form",dataType = "string")
     })
-    public ResponseResult login(String username,String password)
+    public ResponseResult login(@RequestBody Map<String,Object> reqMap)
     {
+        String username=reqMap.get("username").toString();
+        String password=reqMap.get("password").toString();
         ResponseResult responseResult=iadminService.login(username,password);
-       if(responseResult.isSuccess()){
-           return responseResult;
-       }
-        return ResponseResult.createByErrorMessage("用户名或密码错误");
+        return responseResult;
+
     }
 
 
@@ -42,7 +46,7 @@ public class LoginController
     @ApiOperation(value="用户注册", notes="注册后台")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "登录账户名",required = true, paramType = "form", dataType = "String"),
-            @ApiImplicitParam(name = "loginname",value = "密码",required = true,paramType = "form",dataType = "string"),
+            @ApiImplicitParam(name = "loginname",value = "登录账户名",required = true,paramType = "form",dataType = "string"),
             @ApiImplicitParam(name = "loginpwd",value = "密码",required = true,paramType = "form",dataType = "string"),
             @ApiImplicitParam(name = "userphone",value = "密码",required = true,paramType = "form",dataType = "string"),
             @ApiImplicitParam(name = "sex",value = "密码",required = true,paramType = "form",dataType = "string"),

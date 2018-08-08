@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://120.76.222.215/parking_chain?useSSL=false&verifyServerCertificate=false&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1/springboot?useSSL=false&verifyServerCertificate=false&characterEncoding=utf8
     username: root
-    password: ZcZx@2018
+    password:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -30,6 +30,8 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
         # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
+
+
 
 server:
   port: 9090

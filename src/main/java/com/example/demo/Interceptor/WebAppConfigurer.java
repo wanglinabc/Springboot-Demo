@@ -36,30 +36,13 @@ public class WebAppConfigurer extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 多个拦截器组成一个拦截器链
-        // addPathPatterns 用于添加拦截规则
-        // excludePathPatterns 用户排除拦截
-
-        //admin的拦截器
-//        registry.addInterceptor(getMyHandlerInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns(adminExcept)
-//                .excludePathPatterns(apiExcept)
-//                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
         registry.addInterceptor(getMyHandlerInterceptor()).addPathPatterns("/admin/**").excludePathPatterns(adminExcept);
         registry.addInterceptor(getAuthorizationHandlerInterceptor()).addPathPatterns("/admin/**").excludePathPatterns(adminExcept);
-
         //api的拦截器
         registry.addInterceptor(getApiAuthorizationHandlerInterceptor()).addPathPatterns("/api/**").excludePathPatterns(apiExcept);
         super.addInterceptors(registry);
     }
 
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+
 
 }
