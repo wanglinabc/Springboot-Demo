@@ -121,7 +121,6 @@
 
     <!--生产环境记录的日志-->
     <springProfile name="prod">
-
         <root level="WARN">
             <appender-ref ref="fileWarnLog"/>
             <appender-ref ref="fileErrorLog"/>
